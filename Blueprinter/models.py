@@ -1,14 +1,28 @@
 from Blueprinter import db
 
-class industryActivityMaterials(db.Model):
-    __tablename__ = 'industryActivityMaterials'
-    typeID = db.Column(db.Integer, primary_key=True)
-    activityID = db.Column(db.Integer)
-    materialTypeID = db.Column(db.Integer)
-    quantity = db.Column(db.Integer)
+class Base(db.DeclarativeBase):
+    pass
 
-    #def __repr__(self):
-    #    return f"industryActivityMaterials('{self.typeID}', '{self.activityID}', '{self.materialTypeID}', '{self.quantity}')"
+class IndustryActivity(Base):
+    __tablename__ = 'industryActivity'
+    __table_args__ = (
+        db.Index('ix_industryActivity_activityID', 'activityID'),
+    )
+
+    typeID = db.Column(db.Integer, primary_key=True)
+    activityID = db.Column(db.Integer, primary_key=True)
+    time = db.Column(db.Integer)
+
+
+t_industryActivityMaterials = db.Table(
+    'industryActivityMaterials', Base.metadata,
+    db.Column('typeID', db.Integer),
+    db.Column('activityID', db.Integer),
+    db.Column('materialTypeID', db.Integer),
+    db.Column('quantity', db.Integer),
+    db.Index('industryActivityMaterials_idx1', 'typeID', 'activityID'),
+    db.Index('ix_industryActivityMaterials_typeID', 'typeID')
+)
 
 class InvTypes(db.Model):
     __tablename__ = 'InvTypes'

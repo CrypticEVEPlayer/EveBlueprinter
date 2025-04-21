@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
 from Blueprinter import app, db
-from Blueprinter.models import industryActivityMaterials, InvTypes
+from Blueprinter.models import t_industryActivityMaterials, InvTypes
 import sqlite3
 import pandas as pd
 
@@ -8,8 +8,8 @@ import pandas as pd
 @app.route("/home")
 def home():
     #invtype = InvTypes.query.get_or_404(997)
-
-    materials = db.session.query(industryActivityMaterials).filter(industryActivityMaterials.typeID == 997).all()
+    typeids_to_filter = [997]
+    materials = db.session.query(t_industryActivityMaterials).filter_by(typeID = 997).all()
     test = InvTypes.query.get(997)
     print(test)
     print(len(materials))
