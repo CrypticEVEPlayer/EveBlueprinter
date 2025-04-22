@@ -1,5 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
+    {% if items is defined %}
+    <h1>Base Materials for {{ name }}</h1>
     <table>
         <tr>
             <th>Name</th>
@@ -9,10 +11,12 @@
     {% for item in items %}
         <tr>
             <td>{{ item.name }}</td>
-            <td>{{ item.qty}}</td>
-            <td>{{ item.id}}</td>
+            <td>{{ item.qty }}</td>
+            <td>{{ item.id }}</td>
         </tr>
     {% endfor %}
     </table>
-    
+    {% else %}
+        <h1>Welcome to Cryptic's Crazy Shit</h1>
+    {% endif %}
 {% endblock content %}
